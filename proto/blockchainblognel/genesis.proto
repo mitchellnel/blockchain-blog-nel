@@ -1,0 +1,14 @@
+syntax = "proto3";
+package blockchainblognel.blockchainblognel;
+
+import "gogoproto/gogo.proto";
+import "blockchainblognel/params.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "blockchain-blog-nel/x/blockchainblognel/types";
+
+// GenesisState defines the blockchainblognel module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}

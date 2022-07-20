@@ -1,0 +1,12 @@
+syntax = "proto3";
+package blockchainblognel.blockchainblognel;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "blockchain-blog-nel/x/blockchainblognel/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}
