@@ -9,7 +9,10 @@
  * ---------------------------------------------------------------
  */
 
-export type BlockchainblognelMsgCreatePostResponse = object;
+export interface BlockchainblognelMsgCreatePostResponse {
+  /** @format uint64 */
+  id?: string;
+}
 
 /**
  * Params defines the parameters for the module.
@@ -22,6 +25,11 @@ export type BlockchainblognelParams = object;
 export interface BlockchainblognelQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: BlockchainblognelParams;
+}
+
+export interface BlockchainblognelQueryPostsResponse {
+  title?: string;
+  body?: string;
 }
 
 export interface ProtobufAny {
@@ -242,6 +250,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<BlockchainblognelQueryParamsResponse, RpcStatus>({
       path: `/blockchain-blog-nel/blockchainblognel/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPosts
+   * @summary Queries a list of Posts items.
+   * @request GET:/blockchain-blog-nel/blockchainblognel/posts
+   */
+  queryPosts = (params: RequestParams = {}) =>
+    this.request<BlockchainblognelQueryPostsResponse, RpcStatus>({
+      path: `/blockchain-blog-nel/blockchainblognel/posts`,
       method: "GET",
       format: "json",
       ...params,
