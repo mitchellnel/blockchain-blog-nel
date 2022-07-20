@@ -9,6 +9,8 @@
  * ---------------------------------------------------------------
  */
 
+export type BlockchainblognelMsgCreatePostResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */

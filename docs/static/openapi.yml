@@ -30470,6 +30470,8 @@ paths:
       tags:
         - Query
 definitions:
+  blockchainblognel.blockchainblognel.MsgCreatePostResponse:
+    type: object
   blockchainblognel.blockchainblognel.Params:
     type: object
     description: Params defines the parameters for the module.
