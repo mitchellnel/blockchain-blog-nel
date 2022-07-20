@@ -54,6 +54,21 @@ paths:
                 type: string
               body:
                 type: string
+              Post:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    title:
+                      type: string
+                    body:
+                      type: string
+                title: returning a list of Posts
         default:
           description: An unexpected error response.
           schema:
@@ -30513,6 +30528,18 @@ definitions:
   blockchainblognel.blockchainblognel.Params:
     type: object
     description: Params defines the parameters for the module.
+  blockchainblognel.blockchainblognel.Post:
+    type: object
+    properties:
+      creator:
+        type: string
+      id:
+        type: string
+        format: uint64
+      title:
+        type: string
+      body:
+        type: string
   blockchainblognel.blockchainblognel.QueryParamsResponse:
     type: object
     properties:
@@ -30527,6 +30554,21 @@ definitions:
         type: string
       body:
         type: string
+      Post:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            title:
+              type: string
+            body:
+              type: string
+        title: returning a list of Posts
   google.protobuf.Any:
     type: object
     properties:

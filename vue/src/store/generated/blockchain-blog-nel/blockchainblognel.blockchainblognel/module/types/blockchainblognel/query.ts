@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../blockchainblognel/params";
+import { Post } from "../blockchainblognel/post";
 
 export const protobufPackage = "blockchainblognel.blockchainblognel";
 
@@ -13,11 +14,17 @@ export interface QueryParamsResponse {
   params: Params | undefined;
 }
 
+/**
+ * adding pagination to the Posts request
+ * cosmos.base.query.v1beta1.PagesRequest pagination = 1;
+ */
 export interface QueryPostsRequest {}
 
 export interface QueryPostsResponse {
   title: string;
   body: string;
+  /** returning a list of Posts */
+  Post: Post[];
 }
 
 const baseQueryParamsRequest: object = {};
@@ -168,6 +175,9 @@ export const QueryPostsResponse = {
     if (message.body !== "") {
       writer.uint32(18).string(message.body);
     }
+    for (const v of message.Post) {
+      Post.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -175,6 +185,7 @@ export const QueryPostsResponse = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseQueryPostsResponse } as QueryPostsResponse;
+    message.Post = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -183,6 +194,9 @@ export const QueryPostsResponse = {
           break;
         case 2:
           message.body = reader.string();
+          break;
+        case 3:
+          message.Post.push(Post.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -194,6 +208,7 @@ export const QueryPostsResponse = {
 
   fromJSON(object: any): QueryPostsResponse {
     const message = { ...baseQueryPostsResponse } as QueryPostsResponse;
+    message.Post = [];
     if (object.title !== undefined && object.title !== null) {
       message.title = String(object.title);
     } else {
@@ -204,6 +219,11 @@ export const QueryPostsResponse = {
     } else {
       message.body = "";
     }
+    if (object.Post !== undefined && object.Post !== null) {
+      for (const e of object.Post) {
+        message.Post.push(Post.fromJSON(e));
+      }
+    }
     return message;
   },
 
@@ -211,11 +231,17 @@ export const QueryPostsResponse = {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
     message.body !== undefined && (obj.body = message.body);
+    if (message.Post) {
+      obj.Post = message.Post.map((e) => (e ? Post.toJSON(e) : undefined));
+    } else {
+      obj.Post = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<QueryPostsResponse>): QueryPostsResponse {
     const message = { ...baseQueryPostsResponse } as QueryPostsResponse;
+    message.Post = [];
     if (object.title !== undefined && object.title !== null) {
       message.title = object.title;
     } else {
@@ -225,6 +251,11 @@ export const QueryPostsResponse = {
       message.body = object.body;
     } else {
       message.body = "";
+    }
+    if (object.Post !== undefined && object.Post !== null) {
+      for (const e of object.Post) {
+        message.Post.push(Post.fromPartial(e));
+      }
     }
     return message;
   },

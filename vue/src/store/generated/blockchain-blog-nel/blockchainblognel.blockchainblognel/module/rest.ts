@@ -19,6 +19,15 @@ export interface BlockchainblognelMsgCreatePostResponse {
  */
 export type BlockchainblognelParams = object;
 
+export interface BlockchainblognelPost {
+  creator?: string;
+
+  /** @format uint64 */
+  id?: string;
+  title?: string;
+  body?: string;
+}
+
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
@@ -30,6 +39,7 @@ export interface BlockchainblognelQueryParamsResponse {
 export interface BlockchainblognelQueryPostsResponse {
   title?: string;
   body?: string;
+  Post?: BlockchainblognelPost[];
 }
 
 export interface ProtobufAny {

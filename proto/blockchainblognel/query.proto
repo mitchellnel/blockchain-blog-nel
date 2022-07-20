@@ -7,6 +7,8 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "blockchainblognel/params.proto";
 // this line is used by starport scaffolding # 1
 
+import "blockchainblognel/post.proto";
+
 option go_package = "blockchain-blog-nel/x/blockchainblognel/types";
 
 // Query defines the gRPC querier service.
@@ -33,11 +35,19 @@ message QueryParamsResponse {
 }
 
 message QueryPostsRequest {
+    // adding pagination to the Posts request
+    cosmos.base.query.v1beta1.PageRequest pagination = 1;
 }
 
 message QueryPostsResponse {
   string title = 1;
   string body = 2;
+
+  // returning a list of Posts
+  repeated Post Post = 3;
+
+  // adding Pagination to the Posts response
+  cosmos.base.query.v1beta1.PageResponse pagination = 4;
 }
 
 // this line is used by starport scaffolding # 3
