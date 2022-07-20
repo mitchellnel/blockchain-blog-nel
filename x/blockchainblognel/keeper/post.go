@@ -16,7 +16,7 @@ func (k Keeper) AppendPost(ctx sdk.Context, post types.Post) uint64 {
 	post.Id = postCount
 
 	// get the store
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.PostCountKey))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.PostKey))
 
 	// convert the post ID into bytes
 	postID_bytes := make([]byte, 8)
