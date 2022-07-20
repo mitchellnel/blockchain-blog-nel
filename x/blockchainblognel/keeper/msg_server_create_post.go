@@ -4,18 +4,22 @@ import (
 	"context"
 
 	"blockchain-blog-nel/x/blockchainblognel/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) CreatePost(goCtx context.Context, msg *types.MsgCreatePost) (*types.MsgCreatePostResponse, error) {
+func (k msgServer) CreatePost(
+	goCtx context.Context,
+	msg *types.MsgCreatePost,
+) (*types.MsgCreatePostResponse, error) {
 	// get the context
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// create a variable of type Post
-	var post types.Post{
+	var post = types.Post{
 		Creator: msg.Creator,
-		Title: msg.Title,
-		Body: msg.Body,
+		Title:   msg.Title,
+		Body:    msg.Body,
 	}
 
 	// add a post to the store and get back an ID
