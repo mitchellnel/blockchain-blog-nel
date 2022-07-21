@@ -68,3 +68,25 @@ func (k Keeper) SetPostCount(ctx sdk.Context, postCount uint64) {
 	// set the value of Post-count- to postCount
 	store.Set(byteKey, postCount_bytes)
 }
+
+// GetPost retuns a Post from its ID
+func (k Keeper) GetPost(ctx sdk.Context, id uint64) (val types.Post, found bool) {
+	// get the store using the keeper's storeKey and the PostKey
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PostKey))
+
+	// convert the id to bytes
+	id_bytes := make([]byte, 8)
+	binary.BigEndian.PutUint64(id_bytes, id)
+
+	// get the post from the store using its id
+	post_bytes := store.Get(id_bytes)
+
+	if post_bytes == nil {
+		// post doesn't exist
+		return val, false
+	}
+
+	// post exists, so unmarshal
+	k.cdc.MustUnmarshal(post_bytes, &val)
+	return val, true
+}
