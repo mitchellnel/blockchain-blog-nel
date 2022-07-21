@@ -32,8 +32,8 @@ paths:
                       type: string
                       format: uint64
                     createdAt:
-                      type: integer
-                      format: int32
+                      type: string
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -164,8 +164,8 @@ paths:
                     type: string
                     format: uint64
                   createdAt:
-                    type: integer
-                    format: int32
+                    type: string
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -30808,8 +30808,10 @@ definitions:
         type: string
         format: uint64
       createdAt:
-        type: integer
-        format: int32
+        type: string
+        format: int64
+  blockchainblognel.blockchainblognel.MsgCreateCommentResponse:
+    type: object
   blockchainblognel.blockchainblognel.MsgCreatePostResponse:
     type: object
     properties:
@@ -30852,8 +30854,8 @@ definitions:
               type: string
               format: uint64
             createdAt:
-              type: integer
-              format: int32
+              type: string
+              format: int64
       pagination:
         type: object
         properties:
@@ -30898,8 +30900,8 @@ definitions:
             type: string
             format: uint64
           createdAt:
-            type: integer
-            format: int32
+            type: string
+            format: int64
   blockchainblognel.blockchainblognel.QueryParamsResponse:
     type: object
     properties:

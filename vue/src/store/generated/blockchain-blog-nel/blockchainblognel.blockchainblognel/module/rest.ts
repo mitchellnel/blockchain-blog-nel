@@ -19,9 +19,11 @@ export interface BlockchainblognelComment {
   /** @format uint64 */
   postID?: string;
 
-  /** @format int32 */
-  createdAt?: number;
+  /** @format int64 */
+  createdAt?: string;
 }
+
+export type BlockchainblognelMsgCreateCommentResponse = object;
 
 export interface BlockchainblognelMsgCreatePostResponse {
   /** @format uint64 */
