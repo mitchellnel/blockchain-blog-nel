@@ -85,11 +85,20 @@ message QueryAllCommentResponse {
 
 message QueryCommentsRequest {
   uint64 postID = 1;
+
+  // adding pagination to the Comments request
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryCommentsResponse {
   string title = 1;
   string body = 2;
+
+  // returning a list of Comments
+  repeated Comment comment = 3;
+
+  // adding Pagination to the Comments response
+  cosmos.base.query.v1beta1.PageResponse pagination = 4;
 }
 
 // this line is used by starport scaffolding # 3
