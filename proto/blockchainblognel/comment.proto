@@ -1,0 +1,14 @@
+syntax = "proto3";
+package blockchainblognel.blockchainblognel;
+
+option go_package = "blockchain-blog-nel/x/blockchainblognel/types";
+
+message Comment {
+  uint64 id = 1;
+  string creator = 2; 
+  string title = 3; 
+  string body = 4; 
+  uint64 postID = 5; 
+  int32 createdAt = 6; 
+  
+}

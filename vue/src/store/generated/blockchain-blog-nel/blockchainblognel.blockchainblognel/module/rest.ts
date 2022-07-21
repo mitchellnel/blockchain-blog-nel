@@ -9,6 +9,20 @@
  * ---------------------------------------------------------------
  */
 
+export interface BlockchainblognelComment {
+  /** @format uint64 */
+  id?: string;
+  creator?: string;
+  title?: string;
+  body?: string;
+
+  /** @format uint64 */
+  postID?: string;
+
+  /** @format int32 */
+  createdAt?: number;
+}
+
 export interface BlockchainblognelMsgCreatePostResponse {
   /** @format uint64 */
   id?: string;
@@ -26,6 +40,25 @@ export interface BlockchainblognelPost {
   id?: string;
   title?: string;
   body?: string;
+}
+
+export interface BlockchainblognelQueryAllCommentResponse {
+  Comment?: BlockchainblognelComment[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface BlockchainblognelQueryGetCommentResponse {
+  Comment?: BlockchainblognelComment;
 }
 
 /**
@@ -319,10 +352,52 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title blockchainblognel/genesis.proto
+ * @title blockchainblognel/comment.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCommentAll
+   * @summary Queries a list of Comment items.
+   * @request GET:/blockchain-blog-nel/blockchainblognel/comment
+   */
+  queryCommentAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<BlockchainblognelQueryAllCommentResponse, RpcStatus>({
+      path: `/blockchain-blog-nel/blockchainblognel/comment`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryComment
+   * @summary Queries a Comment by id.
+   * @request GET:/blockchain-blog-nel/blockchainblognel/comment/{id}
+   */
+  queryComment = (id: string, params: RequestParams = {}) =>
+    this.request<BlockchainblognelQueryGetCommentResponse, RpcStatus>({
+      path: `/blockchain-blog-nel/blockchainblognel/comment/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *
