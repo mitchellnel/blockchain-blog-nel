@@ -33,6 +33,11 @@ service Query {
 		option (google.api.http).get = "/blockchain-blog-nel/blockchainblognel/comment";
 	}
 
+// Queries a list of Comments items.
+	rpc Comments(QueryCommentsRequest) returns (QueryCommentsResponse) {
+		option (google.api.http).get = "/blockchain-blog-nel/blockchainblognel/comments/{postID}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -76,6 +81,15 @@ message QueryAllCommentRequest {
 message QueryAllCommentResponse {
 	repeated Comment Comment = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryCommentsRequest {
+  uint64 postID = 1;
+}
+
+message QueryCommentsResponse {
+  string title = 1;
+  string body = 2;
 }
 
 // this line is used by starport scaffolding # 3
