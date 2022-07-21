@@ -23,12 +23,17 @@ export interface BlockchainblognelComment {
   createdAt?: string;
 }
 
-export type BlockchainblognelMsgCreateCommentResponse = object;
+export interface BlockchainblognelMsgCreateCommentResponse {
+  /** @format uint64 */
+  id?: string;
+}
 
 export interface BlockchainblognelMsgCreatePostResponse {
   /** @format uint64 */
   id?: string;
 }
+
+export type BlockchainblognelMsgDeleteCommentResponse = object;
 
 /**
  * Params defines the parameters for the module.
@@ -42,6 +47,9 @@ export interface BlockchainblognelPost {
   id?: string;
   title?: string;
   body?: string;
+
+  /** @format int64 */
+  createdAt?: string;
 }
 
 export interface BlockchainblognelQueryAllCommentResponse {
