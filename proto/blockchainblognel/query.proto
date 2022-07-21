@@ -95,7 +95,7 @@ message QueryCommentsResponse {
   string body = 2;
 
   // returning a list of Comments
-  repeated Comment comment = 3;
+  repeated Comment commitments = 3;
 
   // adding Pagination to the Comments response
   cosmos.base.query.v1beta1.PageResponse pagination = 4;
