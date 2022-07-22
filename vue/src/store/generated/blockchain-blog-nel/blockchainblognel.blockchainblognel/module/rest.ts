@@ -33,10 +33,7 @@ export interface BlockchainblognelMsgCreatePostResponse {
   id?: string;
 }
 
-export interface BlockchainblognelMsgDeleteCommentResponse {
-  /** @format uint64 */
-  id?: string;
-}
+export type BlockchainblognelMsgDeleteCommentResponse = object;
 
 /**
  * Params defines the parameters for the module.
@@ -57,22 +54,6 @@ export interface BlockchainblognelPost {
 
 export interface BlockchainblognelQueryAllCommentResponse {
   Comment?: BlockchainblognelComment[];
-
-  /**
-   * PageResponse is to be embedded in gRPC response messages where the
-   * corresponding request message has used PageRequest.
-   *
-   *  message SomeResponse {
-   *          repeated Bar results = 1;
-   *          PageResponse page = 2;
-   *  }
-   */
-  pagination?: V1Beta1PageResponse;
-}
-
-export interface BlockchainblognelQueryCommentsResponse {
-  post?: BlockchainblognelPost;
-  comments?: BlockchainblognelComment[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -423,33 +404,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     this.request<BlockchainblognelQueryGetCommentResponse, RpcStatus>({
       path: `/blockchain-blog-nel/blockchainblognel/comment/${id}`,
       method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
-   * @name QueryComments
-   * @summary Queries a list of Comments items.
-   * @request GET:/blockchain-blog-nel/blockchainblognel/comments/{postID}
-   */
-  queryComments = (
-    postID: string,
-    query?: {
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
-      "pagination.reverse"?: boolean;
-    },
-    params: RequestParams = {},
-  ) =>
-    this.request<BlockchainblognelQueryCommentsResponse, RpcStatus>({
-      path: `/blockchain-blog-nel/blockchainblognel/comments/${postID}`,
-      method: "GET",
-      query: query,
       format: "json",
       ...params,
     });
