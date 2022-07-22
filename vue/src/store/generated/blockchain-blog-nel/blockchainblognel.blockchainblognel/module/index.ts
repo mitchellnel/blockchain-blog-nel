@@ -4,14 +4,14 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreateComment } from "./types/blockchainblognel/tx";
 import { MsgCreatePost } from "./types/blockchainblognel/tx";
+import { MsgCreateComment } from "./types/blockchainblognel/tx";
 import { MsgDeleteComment } from "./types/blockchainblognel/tx";
 
 
 const types = [
-  ["/blockchainblognel.blockchainblognel.MsgCreateComment", MsgCreateComment],
   ["/blockchainblognel.blockchainblognel.MsgCreatePost", MsgCreatePost],
+  ["/blockchainblognel.blockchainblognel.MsgCreateComment", MsgCreateComment],
   ["/blockchainblognel.blockchainblognel.MsgDeleteComment", MsgDeleteComment],
   
 ];
@@ -45,8 +45,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCreateComment: (data: MsgCreateComment): EncodeObject => ({ typeUrl: "/blockchainblognel.blockchainblognel.MsgCreateComment", value: MsgCreateComment.fromPartial( data ) }),
     msgCreatePost: (data: MsgCreatePost): EncodeObject => ({ typeUrl: "/blockchainblognel.blockchainblognel.MsgCreatePost", value: MsgCreatePost.fromPartial( data ) }),
+    msgCreateComment: (data: MsgCreateComment): EncodeObject => ({ typeUrl: "/blockchainblognel.blockchainblognel.MsgCreateComment", value: MsgCreateComment.fromPartial( data ) }),
     msgDeleteComment: (data: MsgDeleteComment): EncodeObject => ({ typeUrl: "/blockchainblognel.blockchainblognel.MsgDeleteComment", value: MsgDeleteComment.fromPartial( data ) }),
     
   };
