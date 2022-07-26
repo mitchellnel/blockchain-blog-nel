@@ -1,7 +1,20 @@
 # blockchainblognel
+
 **blockchainblognel** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
 
+Goals for this repository:
+
+-   Create a blockchain with a module that lets us write to and read data from the blockchain
+
 ## Get started
+
+First, clone this repository:
+
+```
+git clone https://github.com/mitchellnel/blockchain-blog-nel
+```
+
+Then, invoke:
 
 ```
 ignite chain serve
@@ -9,44 +22,69 @@ ignite chain serve
 
 `serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
 
-### Configure
-
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
-
-### Web Frontend
-
-Ignite CLI has scaffolded a Vue.js-based web app in the `vue` directory. Run the following commands to install dependencies and start the app:
+After the blockchain has started, open a separate terminal window, and invoke:
 
 ```
-cd vue
-npm install
-npm run serve
+blockchain-blog-neld tx blockchainblognel create-post "Lewis Hamilton" "7-time world champion" \
+  --from alice --chain-id blockchainblognel
 ```
 
-The frontend app is built using the `@starport/vue` and `@starport/vuex` packages. For details, see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
+This sends a transaction from the account with name `alice` to create a post with `Title: "Lewis Hamilton"` and `Body: "7-time world champion"`.
 
-## Release
-To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
-
-```
-git tag v0.1
-git push origin v0.1
-```
-
-After a draft release is created, make your final changes from the release page and publish it.
-
-### Install
-To install the latest version of your blockchain node's binary, execute the following command on your machine:
+To display all posts currently on the blockchain blog, invoke:
 
 ```
-curl https://get.ignite.com/username/blockchain-blog-nel@latest! | sudo bash
+blockchain-blog-neld q blockchainblognel posts
 ```
-`username/blockchain-blog-nel` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
 
-## Learn more
+And this will currently output:
 
-- [Ignite CLI](https://ignite.com/cli)
-- [Tutorials](https://docs.ignite.com/guide)
-- [Ignite CLI docs](https://docs.ignite.com)
-- [Cosmos SDK docs](https://docs.cosmos.network)
-- [Developer Chat](https://discord.gg/ignite)
+```
+Post:
+- body: 7-time world champion
+  createdAt: "3221"
+  creator: cosmos1fs03pn8htxzhk5r3qr3c7hp5c6sp7uhxswrlc8
+  id: "0"
+  title: Lewis Hamilton
+body: ""
+pagination:
+  next_key: null
+  total: "1"
+title: ""
+```
+
+Then, to create a comment on this post, invoke:
+
+```
+blockchain-blog-neld tx blockchainblognel create-comment 0 "Number of Wins" "103" \
+  --from alice --chain-id blockchainblognel
+```
+
+This sends a transaction from the account with name `alice` to create a post on the post with `id: 0` with `Title: "Number of Wins"` and `Body: "103"`.
+
+Then, to display the posts on a post of a particular ID, invoke:
+
+```
+blockchain-blog-neld q blockchainblognel comments 0
+```
+
+And this will currently output:
+
+```
+comments:
+- body: "103"
+  createdAt: "3302"
+  creator: cosmos1fs03pn8htxzhk5r3qr3c7hp5c6sp7uhxswrlc8
+  id: "0"
+  postID: "0"
+  title: Number of Wins
+pagination:
+  next_key: null
+  total: "1"
+post:
+  body: 7-time world champion
+  createdAt: "3221"
+  creator: cosmos1fs03pn8htxzhk5r3qr3c7hp5c6sp7uhxswrlc8
+  id: "0"
+  title: Lewis Hamilton
+```
